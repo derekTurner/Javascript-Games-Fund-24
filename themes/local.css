@@ -1,0 +1,13 @@
+.resizable {
+	/* Make it resizable */
+	/* @note: Does not work in MobileSafari: https://caniuse.com/#feat=css-resize */
+	resize: both;
+	overflow: auto;
+	
+	/* To allow children to stretch */
+	display: flex;
+}
+
+.resizable > * {
+	flex: 1;
+}

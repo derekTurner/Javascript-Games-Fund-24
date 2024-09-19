@@ -1,0 +1,313 @@
+## CSS frameworks
+
+CSS frameworks provide  organised units of css to cover common situations.
+
+## Bootstrap
+
+A popular framework is [Bootstrap 5](https://getbootstrap.com/docs/5.3/getting-started/introduction/).
+
+The full example listing is:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Bootstrap CSS examnple</h1>
+  <p>Resize this responsive page to see the effect!</p> 
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="assets/icon.png" alt="logo" width="30" height="30">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="design.html">Design</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Play Game</a>
+          </li>  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Games</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Fortnite</a></li>
+              <li><a class="dropdown-item" href="#">Ratchet & Clank: Rift Apart</a></li>
+              <li><a class="dropdown-item" href="#">Splatoon 3</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3 style="text-align: center;">Fortnite</h3>
+      <p>Fortnite is a popular online video game developed by Epic Games that combines elements of survival, shooting, and building in a battle royale format.</p>
+      <p>The latest version of Fortnite is 26.20.0-28096793-Android, which was released on September 26, 2023.</p>
+    </div>
+    <div class="col-sm-4">
+      <h3 style="text-align: center;">Ratchet & Clank: Rift Apart</h3>
+      <p>Ratchet & Clank is a series of action-adventure platform and third-person shooter video games created and developed by Insomniac Games and published by Sony Interactive Entertainment for PlayStation consoles, such as PlayStation 2, PlayStation 3, PlayStation 4, and PlayStation 5</p>
+      <p>The latest installment in the series is Ratchet & Clank: Rift Apart, which was released on July 26, 2023</p>
+    </div>
+    <div class="col-sm-4">
+      <h3 style="text-align: center;">Splatoon 3</h3>        
+      <p>Splatoon is a third-person shooter video game franchise created by Hisashi Nogami and Shintaro Sato, and developed and owned by Nintendo.</p>
+      <p>The latest version of Splatoon is 5.0.0, which was released on August 30, 2023 1. This version includes new gear, titles, and weapons, as well as adjustments to the game's multiplayer modes, including Salmon Run and Story Mode</p>
+    </div>
+  </div>
+</div>
+
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>
+    
+    <!-- The slideshow/carousel -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/fortnite.jpg" alt="Fortnite" class="d-block" style="width:100%">
+        <div class="carousel-caption">
+          <h3 style="background-color: black;">Fortnite</h3>
+          <p style="background-color: black;">A game by Epic Games!</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="assets/ratchetandclank.jpg" alt="Ratchet & Clank" class="d-block" style="width:100%">
+        <div class="carousel-caption">
+          <h3 style="background-color: black;">Ratchet & Clank: Rift Apart</h3>
+          <p style="background-color: black;">A game by Insomniac Games!</p>
+        </div> 
+      </div>
+      <div class="carousel-item">
+        <img src="assets/splatoon3.jpg" alt="Splatoon 3" class="d-block" style="width:100%">
+        <div class="carousel-caption">
+          <h3 style="background-color: black;">Splatoon 3</h3>
+          <p style="background-color: black;">A game by Nintendo Entertainment Planning & Development!</p>
+        </div>  
+      </div>
+    </div>
+    
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <div class="card" style="width: 300px;">
+    <img src="assets/icon.jpg" class="card-img-top" alt="...">
+    <div class="card-body text-center">
+        <h5 class="card-title">Alan Williams</h5>
+        <p class="card-text">Alan works at UWS. Specialising in game development; Unity and Unreal Engine along with web technology languages and frameworks.</p>
+        <a href="#" class="btn btn-primary">View Profile</a>
+    </div>
+</div>
+
+
+
+<!-- accordian-->
+<div class="accordion" id="accordionExample">
+  <!-- accordian 1-->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Fortnite Information #1
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <p>Fortnite is a popular online video game developed by Epic Games. It was initially developed as a survival game, but later evolved into a battle royale game. The game is available on various platforms, including Microsoft Windows, macOS, PlayStation 4, PlayStation 5, Xbox One, Xbox Series X/S, Nintendo Switch, and Android. The game has two main modes: Save the World and Battle Royale. In Save the World mode, players cooperate to defend themselves against zombie-like creatures. In Battle Royale mode, up to 100 players fight to be the last person standing on an island. Players can collect resources and build structures to protect themselves from enemy fire. The game is free-to-play but offers in-game purchases for cosmetic items and other upgrades 1.</p>
+      </div>
+    </div>
+  </div>
+    <!-- accordian 2-->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Ratchet and Clank Information #2
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <p>Ratchet & Clank is a series of action-adventure platform and third-person shooter video games created and developed by Insomniac Games and published by Sony Interactive Entertainment for PlayStation consoles, such as PlayStation 2, PlayStation 3, PlayStation 4, and PlayStation 51. The series has been highly regarded for its engaging gameplay, humor, and memorable characters. It has gained a large following since its inception.
+
+          The latest installment in the series is Ratchet & Clank: Rift Apart, which was released on July 26, 20232. This game is available on Steam and is the first Ratchet & Clank game to be released on PC2. In this interdimensional adventure, players join Ratchet and Clank as they travel between action-packed worlds to take on an evil emperor from another reality2.</p>
+        </div>
+    </div>
+  </div>
+    <!-- accordian 1-->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Splatoon Information
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <p>Splatoon is a third-person shooter video game franchise created by Hisashi Nogami and Shintaro Sato, and developed and owned by Nintendo1. The franchise made its debut with the release of the first game, Splatoon, on May 28, 20151. The game is primarily a team-based third-person shooter that can be played by up to nine players in online four-versus-four matches2. It also features local one-versus-one multiplayer matches and a single-player campaign2.
+
+          The latest installment in the series is Splatoon 3, which was released on September 9, 20221. The game is available exclusively on the Nintendo Switch family of systems3. In Splatoon 3, players enter the Splatlands, where they can ink their way to the top in online modes like Turf War and Salmon Run3. The game offers a mix of action, strategy, and teamwork as players compete to cover the most territory with their team’s ink2.</p>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+```
+
+Which produces:
+
+<iframe 
+    height="2000" 
+    width="100%" 
+    scrolling="no" 
+    title="Hello.html" 
+    src="Block_1/section_3/public/index.html" 
+    frameborder="no" 
+    loading="lazy" 
+    allowtransparency="true" 
+    allowfullscreen="true">
+</iframe>
+
+## Bulma
+
+A popular alternative to bootstrap is [Bulma](https://bulma.io/documentation/components/).
+
+Creating a basic layout:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        Hello World
+      </h1>
+      <p class="subtitle">
+        My first website with <strong>Bulma</strong>!
+      </p>
+    </div>
+
+    <div>
+      <button class="button is-primary">
+        Button 1
+      </button>
+      <button class="button is-link">
+        Button 2
+      </button>
+      <button class="button is-info">
+        Button 3
+      </button>
+      <button class="button is-success">
+        Button 4
+      </button>
+      <button class="button is-warning">
+        Button 5
+      </button>
+      <button class="button is-danger">
+        Button 6
+      </button>
+    </div>
+    
+    <div>
+      <button class="button is-small">
+        Button 1
+      </button>
+      <button class="button">
+        Button 2
+      </button>
+      <button class="button is-medium">
+        Button 3
+      </button>
+      <button class="button is-large">
+        Button 4
+      </button>
+    </div>
+
+    <div>
+      <button class="button is-primary is-outlined">
+        Button 1
+      </button>
+      <button class="button is-loading">
+        Button 2
+      </button>
+      <button class="button" disabled>
+        Button 3
+      </button>
+    </div>
+
+    <div class="columns">
+      <div class="column"><p>Column 1</p></div>
+      <div class="column"><p>Column 2</p></div>
+      <div class="column"><p>Column 3</p></div>
+      <div class="column"><p>Column 4</p></div>
+      <div class="column"><p>Column 5</p></div>
+  </div>
+
+  Dropdown Field
+         </span>
+         <div class = "field">
+            <div class = "control">
+               <div class = "select">
+                  <select>
+                     <option>Option One</option>
+                     <option>Option Two</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+         <br>
+
+  </section>
+  </body>
+</html>
+```
+
+Which produces:
+
+<iframe 
+    height="2000" 
+    width="100%" 
+    scrolling="no" 
+    title="Hello.html" 
+    src="Block_1/section_3/public_Bulma/index.html" 
+    frameborder="no" 
+    loading="lazy" 
+    allowtransparency="true" 
+    allowfullscreen="true">
+</iframe>
