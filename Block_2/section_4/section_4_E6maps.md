@@ -104,9 +104,6 @@ for (const item of silver){console.log(`silver ${item}`)};
 
 The set operations are then illustrated.
 
-
-WORKING ON THIS
-
 <div
   data-runkit
   data-runkit-evaluate-on-load="true"
@@ -168,7 +165,7 @@ function difference(setA, setB) {
 
 const listMembers = ((value, key, map) => {console.log(`map.get('${key}') = ${value}`);});
 
-isSuperset(pewter, gold).forEach((value) => console.log(value));  
+console.log(isSuperset(pewter, gold));  
 console.log(`union ${(union(pewter, gold))}` )       ;        
 console.log(`intersection ${intersection(pewter, gold)}`  )  ;   
 console.log(`symmetricDifference ${symmetricDifference(pewter, gold)}` );

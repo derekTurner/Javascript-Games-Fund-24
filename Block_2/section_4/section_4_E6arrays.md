@@ -49,6 +49,8 @@ console.log(valueArray);
 
 An array is an object so the keys and values can be extracted from it in a similar way to the above object.  
 
+Note that once an iterator has been used the further calls to .next will return {done:true} and the iterator cant be used again.
+
 <div
   data-runkit
   data-runkit-evaluate-on-load="true"
@@ -60,12 +62,37 @@ An array is an object so the keys and values can be extracted from it in a simil
 const hero = ["flash",2000, "generate lightening"];
 
 const heroIterator = hero.keys();
-for (var key of heroIterator){console.log(key)};
+for (let key of heroIterator){console.log(key+"  "+hero[key])};
+console.log(heroIterator.next());
 ```
 </div>
 
 
-This points to a difference between arrays and objects, arrays are always indexed by number while objects are indexed by strings
+This points to a difference between arrays and objects, arrays are always indexed by number while objects are indexed by strings.
+
+To iterate multiple times the iterator could be placed into a functtion.
+
+<div
+  data-runkit
+  data-runkit-evaluate-on-load="true"
+  data-runkit-gutter-style="none"
+  data-runkit-node-version="18"
+>
+
+```javascript
+const hero = ["flash",2000, "generate lightening"];
+
+const iterate = (x) => {
+    const heroIterator = hero.keys();
+    for (let key of heroIterator){console.log(key+"  "+hero[key])};
+    console.log(heroIterator.next());
+};
+
+iterate(hero);
+iterate(hero);
+iterate(hero);
+```
+</div>
 
 ### Array.find()
 
