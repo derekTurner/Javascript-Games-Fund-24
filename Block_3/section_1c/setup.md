@@ -1,20 +1,20 @@
 ## Setting up PC 
 
-To progress from using the playground Babylon can be set up on your local machine.  This can be done by setting up a node enviironment and installing the required modules.
+To progress from using the playground Babylon can be set up on your local machine.  This can be done by setting up a node environment and installing the required modules.
 
 Node can be used in several ways.
 
-1. Install node on the windows machine aan work  locally.  This will cause node modules to be installed locally with the drawback  they can be hard to delete and that it is difficult to maintain several projects at once which may need different node dependancies.
+1. Install node on the windows machine and work  locally.  This will cause node modules to be installed locally with the drawback  they can be hard to delete and that it is difficult to maintain several projects at once which may need different node dependancies.
 
 2. Use a linux installation on a separate dedicated machine.  This should work fine but still needs care to maintain different dependancies for separate projects.
 
-3. Use linux running on a cloud based bachine such as and AWS instance.  Again fine, but take care over back up.
+3. Use linux running on a cloud based machine such as and AWS instance.  Again fine, but take care over back up.
 
 4. Use linux running on a virtual machine locally.
 
 5. Use a fully containerised environment within Docker.
 
-6. Utilise the features of Visual Studio Code and Docker to open local files in a container as and when needed and copy these files to github (taking care not to copy node modules to github). This iss my preferred approach.
+6. Utilise the features of Visual Studio Code and Docker to open local files in a container as and when needed and copy these files to github (taking care not to copy node modules to github). This is my **preferred approach**.
 
 
 This section describes the process of setting up Docker on a local PC together with useful programmes to interface between the editor and github.
@@ -48,15 +48,15 @@ Further extensions will be installed to VSC as required.
 
 Windows subsystem for Linux is easy to install on windows version beyond Windows 10 Home Version 21H1
 
-The current system used a the time of writing these notes is:
+The current system can be found in the windows setting system>about sectyion.  The system used a the time of writing these notes is:
 ```
     Edition: 	  Windows 11 Home
 
-    Version:	  22H2
+    Version:	  23H2
 
-    OS build:	  22621.1992
+    OS build:	  22631.4317
 
-    Experience:	Windows Feature Experience Pack 1000.22644.1000.0
+    Experience:	Windows Feature Experience Pack 1000.22700.1041.0
 ```
 
 
@@ -66,11 +66,64 @@ It is possible to go on to allow GUI linux applications to run on the PC, but th
 
 Microsoft documents supporting WSL can be found [here](https://docs.microsoft.com/en-us/windows/wsl/).
 
-Windows powershell is likely to be on a PC in version 5.1.  Version 7.3.6 is the current version and this features support for docker containers.  Microsoft documentation discusses how to [migrate from powershell 5.1 to Powershell 7](https://docs.microsoft.com/en-us/powershell/scripting/whats-new/migrating-from-windows-powershell-51-to-powershell-7)
+Windows powershell is likely to be on a PC in version 5.1.  Version 7.4.5 is the current version and this features support for docker containers.  Microsoft documentation discusses how to [migrate from powershell 5.1 to Powershell 7](https://docs.microsoft.com/en-us/powershell/scripting/whats-new/migrating-from-windows-powershell-51-to-powershell-7)
 
 I will [download Powershell 7](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows) msi loader and install this with all default options along side powershell 5.1
 
-For a fresh installation of WSL open powershell *as an administrator* and enter the command:
+
+## Updating existing installation
+
+If you already have WSL installed you can check the version within powershell
+
+> wsl --version
+
+I am currently using
+```code
+WSL version: 2.3.24.0
+Kernel version: 5.15.153.1-2
+WSLg version: 1.0.65
+MSRDC version: 1.2.5620
+Direct3D version: 1.611.1-81528511
+DXCore version: 10.0.26100.1-240331-1435.ge-release
+Windows version: 10.0.22631.4317
+```
+If your version is older, the version of WSL can be updated by 
+
+>wsl --update
+
+As part of WSL you will have ubuntu.  In powershell (as administrator)
+
+> ubuntu
+
+> lsb_release -a
+
+```code
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04 LTS
+Release:        20.04
+Codename:       focal
+```
+This is a long term support version, but not the latest.  Provided that I can remember my password I can update:
+
+> sudo apt update && sudo apt upgrade
+
+The process takes a while!
+
+At the end of this I see
+
+> lsb_release -a
+
+```code
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.6 LTS
+Release:        20.04
+Codename:       focal
+```
+
+## WSL fresh install
+
+However, if you don't have WSL you will need a fresh installation of WSL, so, open powershell *as an administrator* and enter the command:
 
 > wsl --install
 
@@ -242,7 +295,7 @@ Install docker from [Docker hub](https://docs.docker.com/desktop/install/windows
 
 and install.
 
-Installation runs through :
+Installation runs through (the current version is 4.34.2):
 
 ![install docker](installDocker.png)
 
@@ -264,11 +317,11 @@ Right click the tray icon to see a menu.
 
 At this point docker has not completed startup.  When startup is complete Docker desktop offers a tutorial - but dont follow this yet.  Click on the settings cog wheel icon next to the sign in.
 
-Click on the option to use composeV2
+Scroll down to see the default settings
 
 ![enable compose V2](enableComposeV2.png)
 
-Then apply and restart.
+No need to change any of these settings.
 
 Now you can quit docker desktop from the system tray menu.
 
@@ -285,6 +338,7 @@ When you join there is a short tutorial available to explain what gitHub is but 
 ## Github desktop
 
 This is an application which is a convenience utility to help manage the maintenance of copies of the git repositories on your local machine.  I find it useful, it is not strictly necessary but easier than trying to manage git commands directly.
+
 
 [Install Github desktop](https://desktop.github.com/)
 
@@ -318,6 +372,10 @@ You can close github desktop now.
 Git is an application which will allow visual studio code to interact with GitHub Directly.  Github desktop has git built in, but to use it with VSC you must explicitly install git.
 
 Undoubtedly you will decide wheter you prefer to manage your github files from Desktop or VSC, but to have both options available is useful.
+
+The current version is 2.47.0
+
+If you already have an older version of git installed, following these instructions will start by automatically removing it before making the new installation.  Setup will be automatic and you will not need to make menu selections again.
 
 Download git [here](https://git-scm.com/).  You will find an online book on git here, but you dont need to issue git commands directly if you use VSC.
 

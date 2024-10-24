@@ -214,7 +214,7 @@ Download and unzip this file and click on it in the file inspector to check that
 
 ## Developing locally
 
-To work on babylonJS locally, in javaScript for starters, all this code will be needed.  It is useful to separate the repetetive code and the specific scene code into separate files.  Later a pattern for project organisation will be set up which allows for expansion to larger projects.  For now code is split up into hello.html, top.js, main.js and bottom.js all within a single folder.
+You can work on BabylonJS using just an editor and a browser drawing all the babylonJS contet in from a content delivery network.  I don't recommend this as a way of working, but you may see reference to this online so it is as well to know what it is.  Review this and then move swiftly on to use vite. To work on babylonJS locally, in javaScript for starters, all this code will be needed.  It is useful to separate the repetetive code and the specific scene code into separate files.  Later a pattern for project organisation will be set up which allows for expansion to larger projects.  For now code is split up into hello.html, top.js, main.js and bottom.js all within a single folder.
 
 ### hello.html
 

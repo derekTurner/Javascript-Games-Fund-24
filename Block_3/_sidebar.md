@@ -1,15 +1,14 @@
 <!-- docs/_sidebar.md -->
-
+<!-- week 6 -->
 * [<b>Home</b>](/)
 * [<b>BabylonJS</b>](/Block_3/README.md "Block 3")
-* [Basics](Block_3/section_1/html5_intro.md)
-* [Refactor Basics](Block_3/section_1b/refactor.md)
 * [Setup PC](Block_3/section_1c/setup.md)
-* [Typescript , Vite and Deno on Docker](Block_3/section_1d_node/devEnv.md)
+* [Typescript , Vite and Node on Docker](Block_3/section_1d_node/devEnv.md)
 * [BabylonJS on Docker](Block_3/section_1e_node/firstBabylon.md)
 * [Changing Machine](Block_3/section_1f/change.md)
 * [Managing Vite](Block_3/section_1g/vite.md)
 * [Cloud development](Block_3/section_1h/cde.md)
+<!--
 * [Lighting and Shadows](Block_3/section_2a/lighting02.md)
 * [Rotation](Block_3/section_2b/rotation.md)
 * [Frame Animation](Block_3/section_3/frames01.md)
@@ -17,9 +16,10 @@
 * [Environment](Block_3/section_5/section_5.md)
 * [key Motion](Block_3/section_6/section_6.md)
 * [pick Motion](Block_3/section_6/section_6b.md)
-
+-->
 
 <hr/>
+
 <!-- 
 
 * [Changing scenes](Block_3/section_4/section_4.md)
@@ -42,4 +42,8 @@
 * [<h3>Sprite Animation</h3>](Block_1/section_8/section_8.md) 
 
 * [<h3>Village scenes</h3>](Block_3/section_5/section_5.md)
+Dont use these pages
+
+* [Basics](Block_3/section_1/html5_intro.md)
+* [Refactor Basics](Block_3/section_1b/refactor.md)
 ->

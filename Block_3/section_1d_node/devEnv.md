@@ -4,19 +4,19 @@ This is an adaptation of the tutorial [Using Vite with Babylon.js](https://doc.b
 
 ## Setting up the environment
 
-Before starting you will need docker desktop installed and running.  Current version is 4.31.1  
+Before starting you will need docker desktop installed and running.  Current version is 4.34.2  
 
 The Help|about tab in Visual Studio Code shows version details.
 
 ```
-Version: 1.90.1 (user setup)
-Commit: 611f9bfce64f25108829dd295f54a6894e87339d
-Date: 2024-06-11T21:01:24.262Z
-Electron: 29.4.0
-ElectronBuildId: 9593362
-Chromium: 122.0.6261.156
-Node.js: 20.9.0
-V8: 12.2.281.27-electron.0
+Version: 1.94.2 (user setup)
+Commit: 384ff7382de624fb94dbaf6da11977bba1ecd427
+Date: 2024-10-09T16:08:44.566Z
+Electron: 30.5.1
+ElectronBuildId: 10262041
+Chromium: 124.0.6367.243
+Node.js: 20.16.0
+V8: 12.4.254.20-electron.0
 OS: Windows_NT x64 10.0.22631
 ```
 
@@ -44,7 +44,7 @@ to show a list of commands and select open folder in container.
 
 ![dev menu](devMenu.png)
 
-Click on Open Foldwer in Container. This will then open a browser dialog to choose the devContainer folder and open.
+Click on Open Folder in Container. This will then open a browser dialog to choose the devContainer folder and open.
 
 ![choose folder](chooseFolder.png)
 
@@ -141,20 +141,20 @@ added 10 packages in 1m
 3 packages are looking for funding
   run `npm fund` for details
 npm notice
-npm notice New minor version of npm available! 10.7.0 -> 10.8.1
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.8.1
-npm notice To update run: npm install -g npm@10.8.1
+npm notice New minor version of npm available! 10.7.0 -> 10.9.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.9.0
+npm notice To update run: npm install -g npm@10.9.0
 npm notice
 ```
 
 Folllow any advice to update.
 
-> npm install -g npm@10.8.1
+> npm install -g npm@10.9.0
 
 ```bash
-added 1 package in 6s
+added 1 package in 7s
 
-24 packages are looking for funding
+25 packages are looking for funding
   run `npm fund` for details
 ```
 
@@ -163,29 +163,31 @@ Once the loading process has completed a package.json file is crated in the baby
 ```json
 {
   "dependencies": {
-    "vite": "^5.3.1"
+    "vite": "^5.4.10"
   }
 }
 ```
+
+
 
 Now install babylon core.
 
 >npm i -D @babylonjs/core
 
 ```bash
-added 2 packages, and audited 13 packages in 17s
+added 2 packages, and audited 13 packages in 24s
 
 3 packages are looking for funding
   run `npm fund` for details
 
-  found 0 vulnerabilities
+found 0 vulnerabilities
 ```
 and also the inspector to make debugging easier.
 
 >npm i -D @babylonjs/inspector
 
 ```bash
-added 15 packages, and audited 28 packages in 31s
+added 15 packages, and audited 28 packages in 21s
 
 3 packages are looking for funding
   run `npm fund` for details
@@ -198,7 +200,7 @@ Also add the babylon loaders required to handle meshes.
 >npm i -D @babylonjs/loaders
 
 ```bash
-up to date, audited 28 packages in 706ms
+up to date, audited 28 packages in 786ms
 
 3 packages are looking for funding
   run `npm fund` for details
@@ -224,13 +226,13 @@ When these are completed the package.json file will have been modified to show t
 ```JSON
 {
   "dependencies": {
-    "vite": "^5.3.1"
+    "vite": "^5.4.10"
   },
   "devDependencies": {
-    "@babylonjs/core": "^7.11.2",
-    "@babylonjs/havok": "^1.3.5",
-    "@babylonjs/inspector": "^7.11.2",
-    "@babylonjs/loaders": "^7.11.2"
+    "@babylonjs/core": "^7.31.0",
+    "@babylonjs/havok": "^1.3.10",
+    "@babylonjs/inspector": "^7.31.0",
+    "@babylonjs/loaders": "^7.31.0"
   }
 }
 ```
@@ -245,8 +247,8 @@ This asks for permission to add packages:
 
 ```bash
 Need to install the following packages:
-create-vite@5.2.3
-Ok to proceed? (y)
+create-vite@5.5.4
+Ok to proceed? (y) 
 ```
 
 > Enter y
@@ -287,7 +289,7 @@ Ok to proceed? (y)
 >Select  typescript
 
 ```bash
-Scaffolding project in /workspaces/babylonJSdev/testProj...
+Scaffolding project in /workspaces/babylonDemo24/testProj...
 
 Done. Now run:
 
@@ -328,10 +330,9 @@ Within the testProj folder is a new package.json file which includes the names o
     "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "typescript": "~5.6.2",
+    "vite": "^5.4.9"
   }
-}
 ```
 
 Due to changes in the default security settings it is now necessary to add --host to the dev and preview scripts manually thus:
@@ -347,8 +348,8 @@ Due to changes in the default security settings it is now necessary to add --hos
     "preview": "vite preview --host"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "typescript": "~5.6.2",
+    "vite": "^5.4.9"
   }
 }
 ```
@@ -358,7 +359,7 @@ To test this out the dependancies must be installed by the node package manager.
 >npm install
 
 ```bash
-added 1 package, and audited 13 packages in 3s
+added 1 package, and audited 13 packages in 887ms
 
 3 packages are looking for funding
   run `npm fund` for details
@@ -369,10 +370,10 @@ found 0 vulnerabilities
 >npm run dev
 
 ```bash
-   VITE v5.3.1  ready in 774 ms
+VITE v5.4.10  ready in 417 ms
 
   ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
+  ➜  Network: http://172.17.0.2:5173/
   ➜  press h + enter to show help
   ```
 
