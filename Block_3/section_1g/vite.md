@@ -64,7 +64,7 @@ The `specular` colour is the colour reflected from shiny surfaces, so appears as
 
 The `groundColour` is a feature only of the Hemispheric light and represents a contrast colour from the opposite direction from the light, as if from the ground.
 
-Now start to add functions to create meshes to add the scene.
+Now check and confirm functions to create meshes to add the scene.
 
 ```javascript
 function createBox(scene: Scene) {
@@ -75,7 +75,7 @@ function createBox(scene: Scene) {
 ```
 This function will return a box in a fixed position.  You could add parameters to the function if you wanted to make it more versatile.
 
-Add a sphere function.
+Check the a sphere function.
 
 ```javascript
 function createSphere(scene: Scene) {

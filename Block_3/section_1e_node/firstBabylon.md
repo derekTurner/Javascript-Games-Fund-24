@@ -37,7 +37,7 @@ Add the following file named tsconfig.json to babylonProj
 
 
 Comments are not normally used in json files, but may be used with typescript.
-The TSConfig referenc can be fond [here](https://www.typescriptlang.org/tsconfig).
+The TSConfig referenc can be found [here](https://www.typescriptlang.org/tsconfig).
 
 
 Add this index.html file to babylonProj:
@@ -298,7 +298,7 @@ Close the running application.
 
 >CTRL + C
 
-Remove the inspector fromn the finished code in createStartscene.ts.
+Remove the inspector from the finished code in createStartscene.ts.
 
 ```javascript
 // import "@babylonjs/core/Debug/debugLayer";
