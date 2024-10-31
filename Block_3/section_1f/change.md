@@ -148,7 +148,7 @@ This yields errors because the script src and link href refer to the address sta
 ```html
 <script type="module" crossorigin src="/assets/index-3c6ef202.js"></script>
 <link rel="stylesheet" href="/assets/index-d6d7b775.css">
-      ```
+```
 
 This would be fine if you opened the dist folder in vsc to make it the root, or if you copied the dist folder contents to a different server.  But for now you can change the addresses to be relative to the current directory and then the application will work on port 5500.
 

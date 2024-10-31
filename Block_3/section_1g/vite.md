@@ -183,11 +183,11 @@ Modify babylonProj/package.json adding new scripts directed at your lighting01 f
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
     "lighting01build": "tsc && vite build lighting01",
-    "lighting01preview": "vite preview lighting01"
+    "lighting01preview": "vite preview lighting01 --host"
   },
   "devDependencies": {
     "typescript": "^5.0.2",

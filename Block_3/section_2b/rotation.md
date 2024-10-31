@@ -53,7 +53,7 @@ The first section imports the required resources and defines the functions to ma
 
 **rotation/src/createStartScene.ts**
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import {
   Scene,
@@ -223,7 +223,7 @@ The full listing of rotation/src/createStartScene.ts is
 
 **rotation/src/createStartScene.ts**
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import {
   Scene,
@@ -415,7 +415,7 @@ The code which controlls the motion of the elements is now held in the file rota
 ```javascript
 import { Vector3, Quaternion } from "@babylonjs/core";
 
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 ```
 The imports of Vector3 and Quaternion are useful for implementing rotation.
 
