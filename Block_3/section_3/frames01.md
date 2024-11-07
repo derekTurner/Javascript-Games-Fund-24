@@ -53,7 +53,7 @@ The full listing is:
 
 **createStartScene.ts**
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import {
   Scene,
@@ -397,7 +397,7 @@ Now in createRunScene.ts the required resources are imported and the  animation 
 Finally the animation on the bos is started with beginAnimation().
 
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import { createxSlide, createySlide, createxRotate, createyRotate, createV3scaling,  createColorShift, frameRate } from "./animations";
 
@@ -816,7 +816,7 @@ These are added to the box and started in createRunScene.ts with the full listin
 
 **createRunScene.ts**
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import { createxSlide, createySlide, createxRotate, createyRotate, createV3scaling,  createColorShift, frameRate } from "./animations";
 
