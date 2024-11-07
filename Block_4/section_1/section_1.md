@@ -205,7 +205,7 @@ body {
 }
 ```
 
-The game page which links from the menu should contain a summary Game Design Document,  there is just placeholder text and image here.  The page should be themed to the colour scheme and style of the game design.
+A site might typically include a game page which links from the menu and might contain a summary Game Design Document or description of scenes,  there is just placeholder text and image here.  The page should be themed to a chosen colour scheme and style.
 
 **game.html**
 ```html
