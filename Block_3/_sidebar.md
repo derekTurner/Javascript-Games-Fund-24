@@ -14,8 +14,21 @@
 * [Rotation](Block_3/section_2b/rotation.md)
 * [Frame Animation](Block_3/section_3/frames01.md)
 * [Shapes](Block_3/section_4/shapes01.md)
-* <!-- week 8 -->
+ <!-- week 8 -->
 * [Environment](Block_3/section_5/section_5.md)
+  <!-- week 9 -->
+* <hr />
+* [key Motion](Block_3/section_6/section_6.md)
+* [Increment mesh](Block_3/section_6/section_6b.md)
+* [Baked animations](Block_3/section_6/section_6c.md)
+* [Changing scenes](Block_3/section_4/section_4.md)
+* [Frame Animation](Block_3/section_6/section_6.md)
+* [old multiscene Mesh Animation](Block_3/section_7/section_7.md)
+
+* [Gui scene selector](Block_3/section_8/section_4.md)
+* [Multiple scenes](Block_3/section_10/section_10.md)
+* [Mesh physics](Block_3/section_11/section_11.md)
+* [Setup Docker](Block_3/section_x gui/ssection_2.md)
 <!--  
 * [Environment](Block_3/section_5/section_5.md)
 * [key Motion](Block_3/section_6/section_6.md)
