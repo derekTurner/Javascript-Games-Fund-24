@@ -16,10 +16,14 @@
 * [Shapes](Block_3/section_4/shapes01.md)
 * <!-- week 8 -->
 * [Environment](Block_3/section_5/section_5.md)
-<!--  
-* [Environment](Block_3/section_5/section_5.md)
+* <!-- week 9 -->
 * [key Motion](Block_3/section_6/section_6.md)
 * [pick Motion](Block_3/section_6/section_6b.md)
+* [baked Animation](Block_3/section_6/section_6c.md)
+* [collisions](Block_3/section_7collisions/collisions.md)
+<!--  
+* [Environment](Block_3/section_5/section_5.md)
+
 -->
 
 <hr/>

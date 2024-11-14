@@ -93,7 +93,7 @@ The scene now looks like this:
     width="100%" 
     scrolling="no" 
     title="Mesh stride" 
-    src="Block_3/section_9/ex_01_player_motion/showScene3.html" 
+    src="Block_3/section_6/distribution03/index.html" 
     frameborder="no" 
     loading="lazy" 
     allowtransparency="true" 
