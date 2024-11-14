@@ -1,10 +1,10 @@
 ## Incremental Motion
 
-The code from the previous example can be copied into a separate project as a starting point for the addition of incremental motion which will cause the player character to spin when the mouse is clicked over it, and to stop when the mouse is held for a long click over the player.
+The code from the previous example can be copied into a separate project (which I have called motion02) as a starting point for the addition of incremental motion which will cause the player character to spin when the mouse is clicked over it, and to stop when the mouse is held for a long click over the player.
 
 In the last example motion was added to the scene.1 `onBeforeRenderObservable`.  In this example additonal rotational motion is added via an `IncrementalValueAction`.
 
-The scene content is unchanged so no change to **createScene2.js** is needed.
+The scene content is unchanged so no change to **createScene.js** is needed.
  
 The main changes will be in a separate module which will be called the characterAnimationManager, so the changes needed in **createRunScene.ts** are quite limitted to a few additional lines:
 
