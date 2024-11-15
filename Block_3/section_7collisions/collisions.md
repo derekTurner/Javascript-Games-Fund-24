@@ -4,7 +4,39 @@ In this section physics is added to the scene.  The mesh is moved by the player 
 
 I have developed this code in a folder called "collisions03"  the starting point is the code for motion03.
 
+# Using Havok
 
+BabylonJS offers a range of physics engines but the primary one is [havok](https://www.havok.com/havok-physics/).  The instructions to use this in the context of code are available online at the [babylonjs havok](https://doc.babylonjs.com/features/featuresDeepDive/physics/usingPhysicsEngine)documentation.
+
+There are two locations for node modules in the file structure.  The first is the folder near the root and in this you can find havok inside @babylonjs.
+
+When a project is run from the babylonproj directory the compiler expects to find the node module in the local node modules folder, but havok is not there.
+
+The solution is to add a vite.config.ts file to the babylonproj directory which enables vite to locate the havok modules in the node modules of the parent directory.
+
+**vite.config,ts**
+```javascript
+// vite.config.js
+export default {
+    // config options
+    server: {
+        fs: {
+          // Allow serving files outside of the root
+          allow: [
+            "../.."
+          ]
+        }
+      },
+    optimizeDeps: { exclude: ["@babylonjs/havok"] }
+}
+ 
+
+// https://forum.babylonjs.com/t/importing-and-implementing-havok-in-vite-react-ts-project-fails/48441/4
+```
+
+This will allow files referencig havok to be developed and built.
+
+## Creating a scene
 
 The full listing of **createScene3.js** includes the creation of two boxes and is now:
 
