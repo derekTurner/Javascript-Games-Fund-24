@@ -355,8 +355,6 @@ export function info(){
 The **createScene3.js** file is now updated to use the **bakedAnimations.ts** file.  The **bakedAnimations.ts** file is imported and the **bakedAnimations()** function is called.
 
 
-
-
 The scene now looks like this:
 
 <iframe 
