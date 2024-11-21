@@ -559,29 +559,8 @@ export default function createRunScene(runScene: SceneData) {
 ```
 Other files are unchanged.
 
-The final version should run but before building we will need to add the **vite.config.ts** configuration script.  Normally vite uses the node modules in the project folder, however the havok modules are in the other node modules folder in the root of the project.  This script allows vite to access the files in the other folder. 
-
-**vite.config.ts**
-```javascript
-// vite.config.js
-export default {
-    // config options
-    server: {
-        fs: {
-          // Allow serving files outside of the root
-          allow: [
-            "../.."
-          ]
-        }
-      },
-    optimizeDeps: { exclude: ["@babylonjs/havok"] }
-
-}
 
 
-// https://forum.babylonjs.com/t/importing-and-implementing-havok-in-vite-react-ts-project-fails/48441/4
-```
-
-This code is not ready to run yet because the code uses top level await and this needs changes to the configuration to target only compatible browsers.
+This code is ready to run but not to build yet because the code uses top level await and this needs changes to the configuration to target only compatible browsers.
 
 
