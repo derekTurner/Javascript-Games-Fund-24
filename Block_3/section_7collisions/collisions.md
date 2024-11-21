@@ -4,116 +4,42 @@ In this section physics is added to the scene.  The mesh is moved by the player 
 
 I have developed this code in a folder called "collision03"  the starting point is a copy of the code for motion03.
 
-Index.html is unchanged from the previous section except for the title.
+# Using Havok
 
-**index.html**
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Collision with havok physics</title>
-    </head>
-    <body> </body>
-</html>
-<script type="module" src="./src/index.ts"></script>
-```
+BabylonJS offers a range of physics engines but the primary one is [havok](https://www.havok.com/havok-physics/).  The instructions to use this in the context of code are available online at the [babylonjs havok](https://doc.babylonjs.com/features/featuresDeepDive/physics/usingPhysicsEngine)documentation.
 
-The createStartScene.js file has been updated to add two boxes to the scene.  The boxes are created with the MeshBuilder.CreateBox() function.  The boxes are positioned at different points and are placed above the ground so that they will drop to the ground under the influence of gravity when the physics engine is enabled.
+There are two locations for node modules in the file structure.  The first is the folder near the root and in this you can find havok inside @babylonjs.
 
-This code is added just below the lines which define the createArcRotateCamera() function.
+When a project is run from the babylonproj directory the compiler expects to find the node module in the local node modules folder, but havok is not there.
 
-**createStartScene.js** (extract)
+The solution is to add a vite.config.ts file to the babylonproj directory which enables vite to locate the havok modules in the node modules of the parent directory.
+
+**vite.config,ts**
 ```javascript
-function createBox1(scene: Scene) {
-  let box = MeshBuilder.CreateBox("box", { width: 1, height: 1 }, scene);
-  box.position.x = -1;
-  box.position.y = 4;
-  box.position.z = 1;
-
-  var texture = new StandardMaterial("reflective", scene);
-  texture.ambientTexture = new Texture(
-    "./assets/textures/reflectivity.png",
-    scene
-  );
-  texture.diffuseColor = new Color3(1, 1, 1);
-  box.material = texture;
-  return box;
+// vite.config.js
+export default {
+    // config options
+    server: {
+        fs: {
+          // Allow serving files outside of the root
+          allow: [
+            "../.."
+          ]
+        }
+      },
+    optimizeDeps: { exclude: ["@babylonjs/havok"] }
 }
+ 
 
-function createBox2(scene: Scene) {
-  let box = MeshBuilder.CreateBox("box", { width: 1, height: 1 }, scene);
-  box.position.x = -0.7;
-  box.position.y = 8;
-  box.position.z = 1;
-
-  var texture = new StandardMaterial("reflective", scene);
-  texture.ambientTexture = new Texture(
-    "./assets/textures/reflectivity.png",
-    scene
-  );
-  texture.diffuseColor = new Color3(1, 1, 1);
-  box.material = texture;
-  return box;
-}
-```
-The default function createStartScene() has been updated to create the boxes and add them to the scene.
-
-**createStartScene.js** (extract)
-```javascript
-export default function createStartScene(engine: Engine) {
-  let scene = new Scene(engine);
-  let audio = backgroundMusic(scene);
-  let lightHemispheric = createHemisphericLight(scene);
-  let camera = createArcRotateCamera(scene);
-  let box1 = createBox1(scene);
-  let box2 = createBox2(scene);
-  let player = importMeshA(scene, 0, 0);
-  let ground = createGround(scene);
-
-  let that: SceneData = {
-    scene,
-    audio,
-    lightHemispheric,
-    camera,
-    box1,
-    box2,
-    player,
-    ground,
-  };
-  return that;
-}
+// https://forum.babylonjs.com/t/importing-and-implementing-havok-in-vite-react-ts-project-fails/48441/4
 ```
 
-That will necessitate a change to the interfaces.js file.
+This will allow files referencig havok to be developed and built.
 
-**interfaces.js** (full listing)
-```javascript
-import {
-  Scene,
-  Sound,
-  Mesh,
-  HemisphericLight,
-  Camera,
-  ISceneLoaderAsyncResult,
-} from "@babylonjs/core";
+## Creating a scene
 
-export interface SceneData {
-  scene: Scene;
-  audio: Sound;
-  lightHemispheric: HemisphericLight;
-  camera: Camera;
-  box1: Mesh;
-  box2: Mesh;
-  player: Promise<void | ISceneLoaderAsyncResult>;
-  ground: Mesh;
-}
-```
+The full listing of **createScene3.js** includes the creation of two boxes and is now:
 
-
-The full listing of **createStartScene.ts** which includes the creation of two boxes and is now:
-
-**createStartScene.js** (full listing)
 ```javascript
 import { SceneData } from "./interfaces ";
 
