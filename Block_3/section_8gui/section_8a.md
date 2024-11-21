@@ -30,7 +30,7 @@ import createStartScene from "./createStartScene";
 import createRunScene from "./createRunScene";
 import createGUIScene from "./createGUI";
 import "./main.css";
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 const CanvasName = "renderCanvas";
 
@@ -57,7 +57,7 @@ The required resources ar imported and these include a Button gui element and an
 **createGUI.ts (extract)**
 ```javascript
 import { Scene, Sound } from "@babylonjs/core";
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 import { Button, AdvancedDynamicTexture } from "@babylonjs/gui/2D";
 ```
 
@@ -138,7 +138,7 @@ The complete list of the **createGUI.ts** file is as follows:
 **createGUI.ts (full listing)**
 ```javascript
 import { Scene, Sound } from "@babylonjs/core";
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 import { Button, AdvancedDynamicTexture } from "@babylonjs/gui/2D";
 
 function createSceneButton(
@@ -196,7 +196,7 @@ To create a scene to sit behind the GUI th usual createStartScene() file is used
 
 **createStartScene.ts (full listing)**
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import {
   Scene,
@@ -336,7 +336,7 @@ The code for createRunScene() is not changed and is as follows:
 ```javascript
 import {} from "@babylonjs/core";
 
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 import "@babylonjs/loaders";
 
 export default function createRunScene(runScene: SceneData) {
