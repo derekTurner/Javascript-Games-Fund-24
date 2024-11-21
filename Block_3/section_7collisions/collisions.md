@@ -38,10 +38,12 @@ This will allow files referencig havok to be developed and built.
 
 ## Creating a scene
 
-The full listing of **createScene3.js** includes the creation of two boxes and is now:
+The full listing of **createStartscene.ts** includes the creation of two boxes and is now:
+
+**createStartsScene.ts (full listing)**
 
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import {
   Scene,
@@ -213,12 +215,37 @@ export default function createStartScene(engine: Engine) {
 }
 ```
 
+The addition of the to box elements has to be reflected in the **interfaces.ts** file.
+
+**interfaces.ts (full listing)**
+```javascript
+import {
+  Scene,
+  Sound,
+  Mesh,
+  HemisphericLight,
+  Camera,
+  ISceneLoaderAsyncResult,
+} from "@babylonjs/core";
+
+export interface SceneData {
+  scene: Scene;
+  audio: Sound;
+  lightHemispheric: HemisphericLight;
+  camera: Camera;
+  box1: Mesh;
+  box2: Mesh;
+  player: Promise<void | ISceneLoaderAsyncResult>;
+  ground: Mesh;
+}
+```
+
 The collisions will be added in through a separate file called **collisionDeclaration.ts**.
 The first step is to import the required resources.  These will include the havok physics engine and associated plugins.
 
 **collisionDeclaration.ts (extract)**
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 import HavokPhysics, { HavokPhysicsWithBindings } from "@babylonjs/havok";
 import { AbstractMesh, HavokPlugin, ISceneLoaderAsyncResult, PhysicsAggregate, PhysicsShapeType, Vector3 } from "@babylonjs/core";
 import "@babylonjs/loaders";
@@ -329,7 +356,7 @@ The full listing of collisionDeclaration.ts is now:
 
 **collisionDeclaration.ts (full listing)** 
 ```javascript
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 import HavokPhysics, { HavokPhysicsWithBindings } from "@babylonjs/havok";
 import { AbstractMesh, HavokPlugin, ISceneLoaderAsyncResult, PhysicsAggregate, PhysicsShapeType, Vector3 } from "@babylonjs/core";
 import "@babylonjs/loaders";
@@ -449,7 +476,7 @@ import {
   _ENVTextureLoader,
 } from "@babylonjs/core";
 
-import { SceneData } from "./interfaces ";
+import { SceneData } from "./interfaces";
 
 import {
   keyActionManager,
