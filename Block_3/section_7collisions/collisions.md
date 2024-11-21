@@ -2,9 +2,41 @@
 
 In this section physics is added to the scene.  The mesh is moved by the player and collides with boxes in the environment.  
 
-I have developed this code in a folder called "collisions03"  the starting point is the code for motion03.
+I have developed this code in a folder called "collision03"  the starting point is a copy of the code for motion03.
 
+# Using Havok
 
+BabylonJS offers a range of physics engines but the primary one is [havok](https://www.havok.com/havok-physics/).  The instructions to use this in the context of code are available online at the [babylonjs havok](https://doc.babylonjs.com/features/featuresDeepDive/physics/usingPhysicsEngine)documentation.
+
+There are two locations for node modules in the file structure.  The first is the folder near the root and in this you can find havok inside @babylonjs.
+
+When a project is run from the babylonproj directory the compiler expects to find the node module in the local node modules folder, but havok is not there.
+
+The solution is to add a vite.config.ts file to the babylonproj directory which enables vite to locate the havok modules in the node modules of the parent directory.
+
+**vite.config,ts**
+```javascript
+// vite.config.js
+export default {
+    // config options
+    server: {
+        fs: {
+          // Allow serving files outside of the root
+          allow: [
+            "../.."
+          ]
+        }
+      },
+    optimizeDeps: { exclude: ["@babylonjs/havok"] }
+}
+ 
+
+// https://forum.babylonjs.com/t/importing-and-implementing-havok-in-vite-react-ts-project-fails/48441/4
+```
+
+This will allow files referencig havok to be developed and built.
+
+## Creating a scene
 
 The full listing of **createScene3.js** includes the creation of two boxes and is now:
 
@@ -24,7 +56,8 @@ import {
   SceneLoader,
   AbstractMesh,
   ISceneLoaderAsyncResult,
-  Sound
+  Sound,
+  AnimationPropertiesOverride
 } from "@babylonjs/core";
 
 function backgroundMusic(scene: Scene): Sound{
@@ -64,6 +97,7 @@ function createGround(scene: Scene) {
   ground.material = groundMaterial;
   return ground;
 }
+
 
 
 function createHemisphericLight(scene: Scene) {
@@ -135,6 +169,7 @@ function createBox2(scene: Scene) {
   return box;
 }
 
+
 function importMeshA(scene: Scene, x: number, y: number) {
   let item: Promise<void | ISceneLoaderAsyncResult> =
     SceneLoader.ImportMeshAsync(
@@ -178,9 +213,232 @@ export default function createStartScene(engine: Engine) {
 }
 ```
 
-The createRunScene function includes havok physics engine and adds the baked animations to the player which are imported from the file we have yet to create.The full listing is now:
+The collisions will be added in through a separate file called **collisionDeclaration.ts**.
+The first step is to import the required resources.  These will include the havok physics engine and associated plugins.
 
-**createRunScene.js**
+**collisionDeclaration.ts (extract)**
+```javascript
+import { SceneData } from "./interfaces ";
+import HavokPhysics, { HavokPhysicsWithBindings } from "@babylonjs/havok";
+import { AbstractMesh, HavokPlugin, ISceneLoaderAsyncResult, PhysicsAggregate, PhysicsShapeType, Vector3 } from "@babylonjs/core";
+import "@babylonjs/loaders";
+
+// https://doc.babylonjs.com/typedoc/classes/BABYLON.HavokPlugin
+let initializedHavok: any;
+
+HavokPhysics().then((havok) => {
+  initializedHavok = havok;
+});
+
+const havokInstance: HavokPhysicsWithBindings = await HavokPhysics();
+const hk: HavokPlugin = new HavokPlugin(true, havokInstance);
+```
+This code crates a new HavokPhysics instance and then creates a HavokPlugin instance according to the method described in the [Havok Physics](https://doc.babylonjs.com/features/featuresDeepDive/physics/havokPlugin) documentation.
+
+For debugging purposes a function collideCB() is added to the file. This function is added as a collision observable to the hk plugin so that it will be called when a collision occurs and the collision data is logged to the console.
+
+**collisionDeclaration.ts (extract)**
+```javascript
+    var collideCB = function (collision: {
+        // log collisions
+        collider: { transformNode: { name: any } };
+        point: any;
+        distance: any;
+        impulse: any;
+        normal: any;
+      }) {
+        console.log(
+          "collideCB",
+          collision.collider.transformNode.name,
+          collision.point,
+          collision.distance,
+          collision.impulse,
+          collision.normal
+        );
+      };
+      hk.onCollisionObservable.add(collideCB);
+```
+Physics must be enabled for the scene and the direction and strength of gravity must be set.
+
+**collisionDeclaration.ts (extract)**
+```javascript
+runScene.scene.enablePhysics(new Vector3(0, -9.8, 0), hk);
+```
+
+Now PhysicsAggregates are created for the ground and the two boxes.  
+
+Physics aggregates consist of a mesh, a shape type, a mass, restitution and friction.  For both ground and body the sshape type is set to box.  
+
+Note that the ground is given a mass of 0 so that it will not move.  The restitutionvalue controlls how much energy is lost when a collision occurs.  The friction controls how much friction is applied to the object.
+
+The collision callback is enabled for the ground and the two boxes.
+
+**collisionDeclaration.ts (extract)**
+```javascript
+    const groundAggregate = new PhysicsAggregate(
+        runScene.ground,
+        PhysicsShapeType.BOX,
+        { mass: 0, restitution: 0.2, friction: 0.7 },
+        runScene.scene
+      );
+      groundAggregate.body.setCollisionCallbackEnabled(true);
+    
+      const boxAggregate = new PhysicsAggregate(
+        runScene.box1,
+        PhysicsShapeType.BOX,
+        { mass: 1, restitution: 0.3, friction: 0.7 },
+        runScene.scene
+      );
+      boxAggregate.body.setCollisionCallbackEnabled(true);
+    
+      const boxAggregate2 = new PhysicsAggregate(
+        runScene.box2,
+        PhysicsShapeType.BOX,
+        { mass: 0.5, restitution: 0.3, friction: 0.7 },
+        runScene.scene
+      );
+      boxAggregate2.body.setCollisionCallbackEnabled(true);
+```
+
+Next the player must be have a Physics Aggregate created for it.  The mesh is set to the player mesh and the shape type is set to capsule.  
+
+As an extra feature the player mesh will be spinning when the scene loads.
+
+**collisionDeclaration.ts (extract)**
+```javascript
+        const playerAggregate = new PhysicsAggregate(
+          character,
+          PhysicsShapeType.CAPSULE,
+          { mass: 0.1, restitution: 1, friction: 1 },
+          runScene.scene
+        );
+        playerAggregate.body.setMassProperties({
+          inertia: new Vector3(0, 0.0, 0.0), 
+        });
+        playerAggregate.body.setAngularVelocity(new Vector3(0, 12, 0));
+        
+        playerAggregate.body.applyImpulse (new Vector3(0, 0, 0),character.position);
+
+        playerAggregate.body.disablePreStep = false;
+        playerAggregate.body.setCollisionCallbackEnabled(true);
+        
+      });
+}
+```
+The full listing of collisionDeclaration.ts is now:
+
+**collisionDeclaration.ts (full listing)** 
+```javascript
+import { SceneData } from "./interfaces ";
+import HavokPhysics, { HavokPhysicsWithBindings } from "@babylonjs/havok";
+import { AbstractMesh, HavokPlugin, ISceneLoaderAsyncResult, PhysicsAggregate, PhysicsShapeType, Vector3 } from "@babylonjs/core";
+import "@babylonjs/loaders";
+
+// https://doc.babylonjs.com/typedoc/classes/BABYLON.HavokPlugin
+let initializedHavok: any;
+
+HavokPhysics().then((havok) => {
+  initializedHavok = havok;
+});
+
+const havokInstance: HavokPhysicsWithBindings = await HavokPhysics();
+const hk: HavokPlugin = new HavokPlugin(true, havokInstance);
+
+
+export function collisionDeclaration(runScene : SceneData){
+
+    var collideCB = function (collision: {
+        // log collisions
+        collider: { transformNode: { name: any } };
+        point: any;
+        distance: any;
+        impulse: any;
+        normal: any;
+      }) {
+        console.log(
+          "collideCB",
+          collision.collider.transformNode.name,
+          collision.point,
+          collision.distance,
+          collision.impulse,
+          collision.normal
+        );
+      };
+      hk.onCollisionObservable.add(collideCB);
+    
+      runScene.scene.enablePhysics(new Vector3(0, -9.8, 0), hk);
+    
+    // let playerAggregate: PhysicsAggregate;
+      
+    //collisions
+    
+      const groundAggregate = new PhysicsAggregate(
+        runScene.ground,
+        PhysicsShapeType.BOX,
+        { mass: 0, restitution: 0.2, friction: 0.7 },
+        runScene.scene
+      );
+      groundAggregate.body.setCollisionCallbackEnabled(true);
+    
+      const boxAggregate = new PhysicsAggregate(
+        runScene.box1,
+        PhysicsShapeType.BOX,
+        { mass: 1, restitution: 0.3, friction: 0.7 },
+        runScene.scene
+      );
+      boxAggregate.body.setCollisionCallbackEnabled(true);
+    
+      const boxAggregate2 = new PhysicsAggregate(
+        runScene.box2,
+        PhysicsShapeType.BOX,
+        { mass: 0.5, restitution: 0.3, friction: 0.7 },
+        runScene.scene
+      );
+      boxAggregate2.body.setCollisionCallbackEnabled(true);
+    
+      runScene.player!.then((result: void | ISceneLoaderAsyncResult) => {
+        let character: AbstractMesh = result!.meshes[0];
+        character.rotation = new Vector3(0, 0.5, 0);
+    
+        const playerAggregate = new PhysicsAggregate(
+          character,
+          PhysicsShapeType.CAPSULE,
+          { mass: 0.1, restitution: 1, friction: 1 },
+          runScene.scene
+        );
+        playerAggregate.body.setMassProperties({
+          inertia: new Vector3(0, 0.0, 0.0), 
+        });
+        playerAggregate.body.setAngularVelocity(new Vector3(0, 12, 0));
+        
+        playerAggregate.body.applyImpulse (new Vector3(0, 0, 0),character.position);
+
+        playerAggregate.body.disablePreStep = false;
+        playerAggregate.body.setCollisionCallbackEnabled(true);
+        
+      });
+}
+```
+
+The collision declaration must now be imported into the createRunScene.ts file after the existing import statements.
+
+**createRunScene.ts (extract)**
+```javascript
+// havok physics collisions
+import { collisionDeclaration } from "./collisionDeclaration";
+```
+
+The collisionDeclaration function is then called in the createRunScene function.
+
+**createRunScene.ts (extract)**
+```javascript
+export default function createRunScene(runScene: SceneData) {
+
+  collisionDeclaration(runScene);
+```
+The full listing of **createRunScene.ts** is now:
+
+**createRunScene.ts (full listing)**
 ```javascript
 import {
   AbstractMesh,
@@ -190,15 +448,25 @@ import {
   Skeleton,
   _ENVTextureLoader,
 } from "@babylonjs/core";
+
 import { SceneData } from "./interfaces ";
+
 import {
   keyActionManager,
   keyDownMap,
   keyDownHeld,
   getKeyDown,
 } from "./keyActionManager";
+
 import { characterActionManager } from "./characterActionManager";
-import { bakedAnimations } from "./bakedAnimations";
+
+import {
+  bakedAnimations,
+  walk,
+  idle,
+  getAnimating,
+  toggleAnimating,
+} from "./bakedAnimations";
 
 import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
 import "@babylonjs/core/Helpers/sceneHelpers";
@@ -206,10 +474,8 @@ import "@babylonjs/core/Helpers/sceneHelpers";
 // havok physics collisions
 import { collisionDeclaration } from "./collisionDeclaration";
 
-
-
 export default function createRunScene(runScene: SceneData) {
-
+  
   collisionDeclaration(runScene);
   runScene.scene.actionManager = new ActionManager(runScene.scene);
   keyActionManager(runScene.scene);
@@ -227,12 +493,10 @@ export default function createRunScene(runScene: SceneData) {
   runScene.audio.stop();
 
   // add baked in animations to player
-  var move: bakedAnimations;
   runScene.player.then((result) => {
     let skeleton: Skeleton = result!.skeletons[0];
-    move = new bakedAnimations(runScene.scene, skeleton);
+    bakedAnimations(runScene.scene, skeleton);
   });
-
 
   runScene.scene.onBeforeRenderObservable.add(() => {
     // check and respond to keypad presses
@@ -249,7 +513,6 @@ export default function createRunScene(runScene: SceneData) {
     runScene.player.then((result) => {
       let characterMoving: Boolean = false;
       let character: AbstractMesh = result!.meshes[0];
-      //let character: TransformNode = getAggregate().body.transformNode;
       if (keyDownMap["w"] || keyDownMap["ArrowUp"]) {
         character.position.x -= 0.1;
         character.rotation.y = (3 * Math.PI) / 2;
@@ -272,14 +535,14 @@ export default function createRunScene(runScene: SceneData) {
       }
 
       if (getKeyDown() && characterMoving) {
-        if (!move.getAnimating()) {
-          move.walk();
-          move.toggleAnimating();
+        if (!getAnimating()) {
+          walk();
+          toggleAnimating();
         }
       } else {
-        if (move.getAnimating()) {
-          move.idle();
-          move.toggleAnimating();
+        if (getAnimating()) {
+          idle();
+          toggleAnimating();
         }
       }
     });
@@ -291,87 +554,13 @@ export default function createRunScene(runScene: SceneData) {
     characterActionManager(runScene.scene, characterMesh as Mesh);
   });
 
-  runScene.scene.onAfterRenderObservable.add(() => { });
+  runScene.scene.onAfterRenderObservable.add(() => {});
 }
 ```
-
-Now we need to create the file **bakedAnimations.js** with a full listing:
-
-**bakedAnimations.js**
-```javascript
-
-
-import { Scene } from "@babylonjs/core/scene";
-import { AnimationPropertiesOverride, AnimationRange, Nullable, Skeleton } from "@babylonjs/core";
-
-
-export class bakedAnimations {
-
-  animating: Boolean = false;
-  walkRange: Nullable<AnimationRange>;
-  runRange: Nullable<AnimationRange>;
-  leftRange: Nullable<AnimationRange>;
-  rightRange: Nullable<AnimationRange>;
-  idleRange: Nullable<AnimationRange>;
-  animScene: Scene;
-  animSkeleton: Skeleton;
-
-  // constructor
-  constructor(myscene: Scene, skeleton: Skeleton) {
-    // use baked in animations
-    this.animScene = myscene;
-    this.animSkeleton = skeleton;
-    this.animSkeleton.animationPropertiesOverride = new AnimationPropertiesOverride();
-    this.animSkeleton.animationPropertiesOverride.enableBlending = true;
-    this.animSkeleton.animationPropertiesOverride.blendingSpeed = 0.05;
-    this.animSkeleton.animationPropertiesOverride.loopMode = 1;
-
-    this.walkRange = skeleton.getAnimationRange("YBot_Walk");
-    this.runRange = skeleton.getAnimationRange("YBot_Run");
-    this.leftRange = skeleton.getAnimationRange("YBot_LeftStrafeWalk");
-    this.rightRange = skeleton.getAnimationRange("YBot_RightStrafeWalk");
-    this.idleRange = skeleton.getAnimationRange("YBot_Idle");
+Other files are unchanged.
 
 
 
-  }
+This code is ready to run but not to build yet because the code uses top level await and this needs changes to the configuration to target only compatible browsers.
 
-  walk() {
-    this.animScene.beginAnimation(this.animSkeleton, this.walkRange!.from, this.walkRange!.to, true);
-  }
-
-  run() {
-    this.animScene.beginAnimation(this.animSkeleton, this.runRange!.from, this.runRange!.to, true);
-  }
-
-  left() {
-    this.animScene.beginAnimation(this.animSkeleton, this.leftRange!.from, this.leftRange!.to, true);
-  }
-
-  right() {
-    this.animScene.beginAnimation(this.animSkeleton, this.rightRange!.from, this.rightRange!.to, true);
-  }
-
-  idle() {
-    this.animScene.beginAnimation(this.animSkeleton, this.idleRange!.from, this.idleRange!.to, true);
-  }
-
-  stopAnimation() {
-    this.animScene.stopAnimation(this.animSkeleton);
-  }
-
-  getAnimating(): Boolean { return this.animating };
-
-  toggleAnimating() { this.animating = !this.animating };
-
-  info() {
-    // console.log(this.idleRange!.from, this.idleRange!.to);
-  }
-}
-```
-The full structure in the src folder should look like this:
-
-![structure](./images/structure.png)
-
-The final version should run but before building we will need to update the typescript configuration to adapt to havok physics.
 
