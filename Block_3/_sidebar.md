@@ -21,7 +21,7 @@
 * [pick Motion](Block_3/section_6/section_6b.md)
 * [baked Animation](Block_3/section_6/section_6c.md)
 * [collisions](Block_3/section_7collisions/collisions.md)
-* [build havok](Block_3/section_8havok/buildHavok.md)
+* [build havok](Block_3/section_8havok/buildhavok.md)
 * <!-- week 10 -->
 * [gui](Block_3/section_9gui/section_9a.md)
 
