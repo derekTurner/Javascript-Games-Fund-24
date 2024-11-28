@@ -586,6 +586,19 @@ export default function createRunScene(runScene: SceneData) {
 ```
 Other files are unchanged.
 
+The scene now looks like this:
+
+<iframe 
+    height="460" 
+    width="100%" 
+    scrolling="no" 
+    title="Box collider" 
+    src="Block_3/section_7collisions/distrib/index.html" 
+    frameborder="no" 
+    loading="lazy" 
+    allowtransparency="true" 
+    allowfullscreen="true">
+</iframe>
 
 
 This code is ready to run but not to build yet because the code uses top level await and this needs changes to the configuration to target only compatible browsers.
