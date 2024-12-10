@@ -1,8 +1,10 @@
 # Website
 
-This website layout utilising Bootstrap 5 can be used as container for some biographical information, a game design summary and a list of element pages which show different aspects of BasbylonJS.
+This website layout utilising Bootstrap 5 can be used as container for some biographical information, a page which could host a game design summary and a list of element pages which show different aspects of BasbylonJS.
 
 This is a revision aid featuring basic BabylonJS scenes which you can draw on.  Please adapt any code you use to fit your own purpose.
+
+
 
 The website will feature on each of these pages and code will be commented upon in the Element sections.
 
